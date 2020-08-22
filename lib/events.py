@@ -49,6 +49,6 @@ def _lines(filename):
 def _packages(value):
     """Iterates over the packages represented by a text string."""
 
-    regex = re.compile("([^ ]+?) \((.+?)\)")
+    regex = re.compile("([^ ]+?) \((.*?)\)")
     for match in regex.findall(value):
         yield {"Name": match[0], "Version": match[1]}
