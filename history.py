@@ -1,15 +1,13 @@
-import lib.events
+# Prints in chronological order the log events of the current user.
+# Green packages are still installed, red packages are not.
+
+import lib.history
+import lib.pretty
+import lib.status
 import os
 
+history = lib.history.UserHistory(os.getlogin(), os.getuid())
+installed = lib.status.all_installed()
 
-events = list(sorted(lib.events.all_events(), key=lambda e: e["Start-Date"]))
-
-user = "%s (%s)" % (os.getlogin(), os.getuid())
-for event in events:
-    if "Requested-By" not in event or event["Requested-By"] != user:
-        continue
-    print("[%s] %s" % (event["Start-Date"], event["Commandline"]))
-    for key in "Install", "Update", "Remove", "Purge":
-        if key in event:
-            print("%s: %s" % (key, " ".join(p["Name"] for p in event[key])))
-    print()
+for event in history.events:
+    lib.pretty.print_event(event, installed)
