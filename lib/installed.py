@@ -19,7 +19,7 @@ class Installed:
         return package in self.installed
 
     def is_multiarch_installed(self, package):
-        """Returns if the multi-arch replacement of a package is installed."""
+        """Returns if the multi-arch variant of a package is installed."""
 
         name, arch = package.split(":", 1)
         return name + ":all" in self.installed

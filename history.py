@@ -1,4 +1,4 @@
-# Prints the log events in chronological order.
+# Prints the events in chronological order.
 
 import lib.installed
 import lib.history

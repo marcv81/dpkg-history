@@ -34,7 +34,7 @@ class History:
             return self.last_installs[package]
 
     def last_multiarch_installed(self, package):
-        """Returns the date a package or its multi-arch replacement was last installed."""
+        """Returns the date a package or its multi-arch variant was last installed."""
 
         dates = []
         if package in self.last_installs:
