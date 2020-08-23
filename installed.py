@@ -9,18 +9,29 @@ history = lib.history.UserHistory(os.getlogin(), os.getuid())
 installed = lib.installed.Installed()
 
 
-def contains_last_install(event):
-    """Returns true if the user did not remove at least one package installed in the event."""
+def is_relevant(event):
+    """Returns if the event is an installation that was not reverted.
+
+    Returns true if the event installed at least one package which is still
+    installed and which was not subsequently reinstalled."""
 
     if "Install" not in event:
         return False
     for package in event["Install"]:
-        last_event = history.last_events[package["Name"]]
-        if last_event["Installed"] and last_event["Start-Date"] == event["Start-Date"]:
+        name = package["Name"]
+        if (
+            installed.is_installed(name)
+            and history.last_installed(name) == event["Start-Date"]
+        ):
+            return True
+        if (
+            installed.is_multiarch_installed(name)
+            and history.last_multiarch_installed(name) == event["Start-Date"]
+        ):
             return True
     return False
 
 
 for event in history.events:
-    if contains_last_install(event):
+    if is_relevant(event):
         lib.pretty.print_event(event, installed)
