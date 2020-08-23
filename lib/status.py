@@ -1,15 +1,3 @@
-def all_installed():
-    """Returns the set of installed packages."""
-
-    return set(
-        [
-            package["Package"] + ":" + package["Architecture"]
-            for package in all_packages()
-            if package["Status"] == "install ok installed"
-        ]
-    )
-
-
 def all_packages():
     """Iterates over all the known packages."""
 

@@ -1,13 +1,12 @@
 # Prints in chronological order the installations of the current user that were not reverted.
-# Green packages are still installed, red packages are not.
 
+import lib.installed
 import lib.history
 import lib.pretty
-import lib.status
 import os
 
 history = lib.history.UserHistory(os.getlogin(), os.getuid())
-installed = lib.status.all_installed()
+installed = lib.installed.Installed()
 
 
 def contains_last_install(event):
