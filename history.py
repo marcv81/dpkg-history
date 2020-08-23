@@ -1,11 +1,10 @@
-# Prints in chronological order the log events of the current user.
+# Prints the log events in chronological order.
 
 import lib.installed
 import lib.history
 import lib.pretty
-import os
 
-history = lib.history.UserHistory(os.getlogin(), os.getuid())
+history = lib.history.History()
 installed = lib.installed.Installed()
 
 for event in history.events:

@@ -1,21 +1,20 @@
 import lib.events
 
 
-class UserHistory:
-    """Reads and analyses the log events for a user"""
+class History:
+    """Reads and analyses the log events which resulted from user commands."""
 
-    def __init__(self, login, id):
-        self._read_events(login, id)
+    def __init__(self):
+        self._read_events()
         self._find_last_installs()
 
-    def _read_events(self, login, id):
-        """Reads and chronologically sorts the log events for a user."""
+    def _read_events(self):
+        """Reads and chronologically sorts the log events."""
 
-        user = "%s (%s)" % (login, id)
         events = [
             event
             for event in lib.events.all_events()
-            if "Requested-By" in event and event["Requested-By"] == user
+            if "Commandline" in event and "Requested-By" in event
         ]
         self.events = list(sorted(events, key=lambda event: event["Start-Date"]))
 

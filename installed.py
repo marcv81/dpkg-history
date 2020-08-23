@@ -1,11 +1,10 @@
-# Prints in chronological order the installations of the current user that were not reverted.
+# Prints the installations that were not reverted in chronological order.
 
 import lib.installed
 import lib.history
 import lib.pretty
-import os
 
-history = lib.history.UserHistory(os.getlogin(), os.getuid())
+history = lib.history.History()
 installed = lib.installed.Installed()
 
 

@@ -10,7 +10,8 @@ def print_event(event, installed):
     Green packages are still installed. Yellow packages were converted from
     arch-specific to multi-arch. Red packages are no longer installed."""
 
-    print("[%s] %s" % (event["Start-Date"], event["Commandline"]))
+    date = " ".join(event["Start-Date"].split())
+    print("[%s | %s] %s" % (date, event["Requested-By"], event["Commandline"]))
     for key in "Install", "Update", "Remove", "Purge":
         if key in event:
             packages = []
