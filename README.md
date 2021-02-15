@@ -1,14 +1,14 @@
 # Intro
 
-I do not know how to automatically remove an apt package and all its unused dependencies. This tool allows me to to see what dependencies were installed at the time I installed a package, and which ones are still installed. I use it to identify and remove the unused dependencies.
+This tool helps to track the `.deb` packages installed/removed on a system. It displays the `apt` events history, and uses colors to show which packages are still installed.
 
 # Setup
 
-This tool relies on the dpkg logs. Edit `/etc/logrotate.d/dpkg` and set rotate to 60 to keep the logs for 5 years.
+This tool relies on the `/var/log/apt/history.log` logs. Edit `/etc/logrotate.d/apt` and set rotate to 60 to keep the logs for 5 years.
 
 # Usage
 
-Show only the installation events that were not reverted.
+Show only the installation events that were not completely reverted.
 
     python3 installed.py
 
